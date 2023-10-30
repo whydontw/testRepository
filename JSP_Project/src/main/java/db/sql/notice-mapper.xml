@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+	<!-- 전부 조회에도 select * 을 사용하지 않는다. -->
+	<!-- 테이블에 무슨 컬럼이 있는지 파악하기 힘들기 때문에 -->
+	<entry key="selectNoticeList">
+		SELECT 
+		NOTICE_NO,
+		NOTICE_TITLE,
+		USER_NAME,
+		COUNT,
+		CREATE_DATE
+		FROM NOTICE N JOIN MEMBER M
+		ON(N.NOTICE_WRITER=M.USER_NO)
+		WHERE N.STATUS = 'Y'
+		ORDER BY CREATE_DATE DESC
+	</entry>
+	
+	<entry key="selectNotice">
+		SELECT 
+		NOTICE_NO,
+		NOTICE_TITLE,
+		NOTICE_CONTENT,
+		USER_NAME,
+		COUNT,
+		CREATE_DATE
+		FROM NOTICE N JOIN MEMBER M
+		ON(N.NOTICE_WRITER=M.USER_NO)
+		WHERE
+		NOTICE_NO = ?
+		AND N.STATUS = 'Y'
+	</entry>
+	
+	<entry key="increaseCount">
+		UPDATE NOTICE SET
+		COUNT = COUNT + 1
+		WHERE
+		NOTICE_NO = ?
+		AND STATUS = 'Y'
+	</entry>
+	
+	<entry key="insertNotice">
+		INSERT INTO NOTICE(
+		NOTICE_NO,
+		NOTICE_TITLE,
+		NOTICE_CONTENT,
+		NOTICE_WRITER
+		) VALUES(
+		SEQ_NNO.NEXTVAL, ?, ?, ?
+		)
+	</entry>
+	
+	<entry key="updateNotice">
+		UPDATE NOTICE SET
+		NOTICE_TITLE = ?,
+		NOTICE_CONTENT = ?
+		WHERE
+		NOTICE_NO = ?
+		AND STATUS = 'Y'
+	</entry>
+	
+	<entry key="deleteNotice">
+		UPDATE NOTICE SET
+		STATUS = 'N'
+		WHERE NOTICE_NO = ?
+	</entry>
+
+</properties>

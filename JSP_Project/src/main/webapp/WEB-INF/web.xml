@@ -27,6 +27,7 @@
   	<filter>
   		<filter-name>characterEncodingFilter</filter-name>
   		<filter-class>com.kh.common.EncodingFilter</filter-class> <!-- Filter 위치 -->
+  		
   	</filter>
   	<filter-mapping>
   		<filter-name>characterEncodingFilter</filter-name>
